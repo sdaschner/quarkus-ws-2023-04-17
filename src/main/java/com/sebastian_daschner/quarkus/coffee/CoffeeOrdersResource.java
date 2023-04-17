@@ -1,19 +1,18 @@
 package com.sebastian_daschner.quarkus.coffee;
 
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.stream.JsonCollectors;
 import javax.validation.Valid;
-import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Path("orders")
 @Produces(MediaType.APPLICATION_JSON)
@@ -21,12 +20,12 @@ import java.util.List;
 public class CoffeeOrdersResource {
 
     @Inject
-    Event<CoffeeOrder> createdOrders;
+    CoffeeShop coffeeShop;
 
     @GET
 //    public List<CoffeeOrder> orders() {
     public JsonArray orders() {
-        List<CoffeeOrder> orders = List.of(new CoffeeOrder("Espresso"), new CoffeeOrder("Cappuccino"));
+        List<CoffeeOrder> orders = coffeeShop.getOrders();
 
         return orders.stream()
                 .map(o -> Json.createObjectBuilder()
@@ -35,32 +34,23 @@ public class CoffeeOrdersResource {
     }
 
     @GET
-    @Path("date")
-    public CoffeeOrderDate orderDate() {
-        CoffeeOrder order = new CoffeeOrder("Espresso");
-        return new CoffeeOrderDate(order.getType(), LocalDate.now());
+    @Path("cappuccinos")
+    public List<CoffeeOrder> cappuccinos() {
+        return coffeeShop.getCappuccinoOrders();
     }
 
     @GET
-    @Path("123")
-//    public CoffeeOrder order() {
-    public JsonObject order() {
-        CoffeeOrder order = new CoffeeOrder("Espresso");
-        return Json.createObjectBuilder()
-                .add("type", order.getType())
-//                .add("hello", "World")
-//                .add("int", 123)
-                .build();
+    @Path("{id}")
+    public CoffeeOrder order(@PathParam("id") UUID id) {
+        return coffeeShop.getOrder(id);
     }
 
     @POST
     public Response create(@Valid @NotNull CoffeeOrder order) {
-        System.out.println("order " + order + " created");
-
-        createdOrders.fireAsync(order);
-
+        coffeeShop.createOrder(order);
         return Response.accepted().build();
     }
+
 
     public record CoffeeOrderDate(String type, LocalDate date) {
     }

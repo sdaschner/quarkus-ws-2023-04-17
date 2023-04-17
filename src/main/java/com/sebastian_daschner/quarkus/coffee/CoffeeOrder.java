@@ -1,25 +1,38 @@
 package com.sebastian_daschner.quarkus.coffee;
 
 import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Entity
+@Table(name = "coffee_orders")
 public class CoffeeOrder {
 
+    @Id
+    @GeneratedValue
     @JsonbTransient
-    public UUID id;
+    private UUID id;
 
-    //    @JsonbProperty("coffeeType")
     @NotNull
     private String type;
 
     public CoffeeOrder() {
-        id = UUID.randomUUID();
     }
 
     public CoffeeOrder(String type) {
-        id = UUID.randomUUID();
         this.type = type;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getType() {
