@@ -8,6 +8,7 @@ import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -29,17 +30,28 @@ public class Countries {
     }
 
     public List<String> getCountryNames() {
-        JsonArray array = countriesTarget.request(MediaType.APPLICATION_JSON_TYPE)
-                .get(JsonArray.class);
+        GenericType<List<Country>> responseType = new GenericType<>(){};
 
-        return array.getValuesAs(JsonObject.class).stream()
-                .map(o -> o.getJsonObject("name").getString("common"))
-                .collect(Collectors.toList());
+        List<Country> countries = countriesTarget.request(MediaType.APPLICATION_JSON_TYPE)
+                .get(responseType);
+
+        return countries.stream().map(c -> c.name.common).collect(Collectors.toList());
+
+//        return array.getValuesAs(JsonObject.class).stream()
+//                .map(o -> o.getJsonObject("name").getString("common"))
+//                .collect(Collectors.toList());
     }
 
     @PreDestroy
     void closeClient() {
         client.close();
+    }
+
+    public static class Country {
+        public CountryName name;
+        public static class CountryName {
+            public String common;
+        }
     }
 
 }
