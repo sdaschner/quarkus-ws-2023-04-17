@@ -1,5 +1,6 @@
 package com.sebastian_daschner.quarkus.coffee;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -20,7 +21,7 @@ import java.util.List;
 public class CoffeeOrdersResource {
 
     @Inject
-    Validator validator;
+    Event<CoffeeOrder> createdOrders;
 
     @GET
 //    public List<CoffeeOrder> orders() {
@@ -55,6 +56,8 @@ public class CoffeeOrdersResource {
     @POST
     public Response create(@Valid @NotNull CoffeeOrder order) {
         System.out.println("order " + order + " created");
+
+        createdOrders.fireAsync(order);
 
         return Response.accepted().build();
     }

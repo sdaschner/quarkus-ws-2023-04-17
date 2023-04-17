@@ -6,7 +6,7 @@
 - ✓ CDI, Quarkus-specifics
 - ✓ Configuration
 - ✓ Health, Instrumentation, Metrics
-- REST, JSON, Validation
+- ✓ REST (Server/Client), JSON, Validation
 - Concurrency, Scheduling
 - Persistence, Transactions, Panache, Data Migration
 - Docker, Deployment, DevOps Aspects

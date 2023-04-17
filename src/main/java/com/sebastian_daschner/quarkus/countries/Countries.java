@@ -15,6 +15,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -47,6 +49,16 @@ public class Countries {
 //        return array.getValuesAs(JsonObject.class).stream()
 //                .map(o -> o.getJsonObject("name").getString("common"))
 //                .collect(Collectors.toList());
+    }
+
+    public CompletionStage<List<String>> getCountryNamesAsync() {
+        GenericType<List<Country>> responseType = new GenericType<>(){};
+
+        CompletionStage<List<Country>> countries = countriesTarget.request(MediaType.APPLICATION_JSON_TYPE)
+                .rx()
+                .get(responseType);
+
+        return countries.thenApply(cs -> cs.stream().map(c -> c.name.common).collect(Collectors.toList()));
     }
 
     public List<String> defaultCountryNames() {
