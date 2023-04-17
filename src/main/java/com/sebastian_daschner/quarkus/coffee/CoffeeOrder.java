@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class CoffeeOrder {
 
-//    @JsonbTransient
+    @JsonbTransient
     public UUID id;
 
     //    @JsonbProperty("coffeeType")
