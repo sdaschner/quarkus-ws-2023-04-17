@@ -11,6 +11,6 @@
 - ✓ Persistence, Transactions, Panache, Data Migration
 - ✓ Docker, Deployment, Kubernetes
 - ✓ Qute Templating
-- Quarkus Ecosystem
-- Native mode vs. JVM mode, DevOps Aspects
-- Security, JWT, User Auth, OIDC
+- ✓ Native mode vs. JVM mode, DevOps Aspects
+- ✓ Security, JWT, User Auth, OIDC
+- ✓ Quarkus Ecosystem
