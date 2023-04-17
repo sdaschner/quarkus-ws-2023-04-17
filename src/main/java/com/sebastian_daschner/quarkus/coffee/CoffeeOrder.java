@@ -1,45 +1,32 @@
 package com.sebastian_daschner.quarkus.coffee;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "coffee_orders")
-public class CoffeeOrder {
+public class CoffeeOrder extends PanacheEntityBase {
 
     @Id
     @GeneratedValue
     @JsonbTransient
-    private UUID id;
+    public UUID id;
 
     @NotNull
-    private String type;
+    public String type;
 
     public CoffeeOrder() {
     }
 
     public CoffeeOrder(String type) {
-        this.type = type;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
         this.type = type;
     }
 
@@ -50,4 +37,9 @@ public class CoffeeOrder {
                ", type='" + type + '\'' +
                '}';
     }
+
+    public static List<CoffeeOrder> listAllCappuccinos() {
+        return list("type", "Cappuccino");
+    }
+
 }

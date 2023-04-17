@@ -3,7 +3,6 @@ package com.sebastian_daschner.quarkus.coffee;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonObject;
 import javax.json.stream.JsonCollectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,7 +28,7 @@ public class CoffeeOrdersResource {
 
         return orders.stream()
                 .map(o -> Json.createObjectBuilder()
-                        .add("type", o.getType()).build())
+                        .add("type", o.type).build())
                 .collect(JsonCollectors.toJsonArray());
     }
 

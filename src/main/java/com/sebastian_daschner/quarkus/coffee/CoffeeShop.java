@@ -13,24 +13,28 @@ public class CoffeeShop {
     @Inject
     Event<CoffeeOrder> createdOrders;
 
-    @Inject
-    CoffeeOrderRepository repository;
+//    @Inject
+//    CoffeeOrderRepository repository;
 
     public List<CoffeeOrder> getOrders() {
-        return repository.listAll();
+        return CoffeeOrder.listAll();
+//        return repository.listAll();
     }
 
     public CoffeeOrder getOrder(UUID id) {
-        return repository.findById(id);
+        return CoffeeOrder.findById(id);
+//        return repository.findById(id);
     }
 
     public List<CoffeeOrder> getCappuccinoOrders() {
-        return repository.listAllCappuccinos();
+//        return repository.listAllCappuccinos();
+        return CoffeeOrder.listAllCappuccinos();
     }
 
     @Transactional
     public void createOrder(CoffeeOrder order) {
-        repository.persist(order);
+//        repository.persist(order);
+        order.persist();
 
         System.out.println("order " + order + " created");
 
