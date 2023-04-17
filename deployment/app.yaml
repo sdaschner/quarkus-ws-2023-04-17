@@ -1,0 +1,60 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hello
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: sdaschner/coffee-shop:ws-2023-04-17
+        imagePullPolicy: Always
+        env:
+        - name: EXAMPLE_CONFIG
+          value: '789'
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /q/health
+      imagePullSecrets:
+      - name: regsecret
+      restartPolicy: Always
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello
+  labels:
+    app: hello
+spec:
+  selector:
+    app: hello
+  ports:
+  - port: 8080
+    name: http
+---
+
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: hello
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello
+            port:
+              number: 8080
+---

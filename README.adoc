@@ -7,10 +7,10 @@
 - ✓ Configuration
 - ✓ Health, Instrumentation, Metrics
 - ✓ REST (Server/Client), JSON, Validation
-- Concurrency, Scheduling
-- Persistence, Transactions, Panache, Data Migration
-- Docker, Deployment, DevOps Aspects
+- ✓ Concurrency, Scheduling
+- ✓ Persistence, Transactions, Panache, Data Migration
+- ✓ Docker, Deployment, Kubernetes
 - Qute Templating
 - Quarkus Ecosystem
-- Native mode vs. JVM mode
+- Native mode vs. JVM mode, DevOps Aspects
 - Security, JWT, User Auth, OIDC
