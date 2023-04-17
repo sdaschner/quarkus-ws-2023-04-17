@@ -10,7 +10,7 @@
 - ✓ Concurrency, Scheduling
 - ✓ Persistence, Transactions, Panache, Data Migration
 - ✓ Docker, Deployment, Kubernetes
-- Qute Templating
+- ✓ Qute Templating
 - Quarkus Ecosystem
 - Native mode vs. JVM mode, DevOps Aspects
 - Security, JWT, User Auth, OIDC
