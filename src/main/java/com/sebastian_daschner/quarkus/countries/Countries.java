@@ -1,5 +1,9 @@
 package com.sebastian_daschner.quarkus.countries;
 
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +33,9 @@ public class Countries {
         countriesTarget = client.target("https://restcountries.com/v3.1/all");
     }
 
+    @Retry
+    @Fallback(fallbackMethod = "defaultCountryNames")
+    @Timeout(value = 200)
     public List<String> getCountryNames() {
         GenericType<List<Country>> responseType = new GenericType<>(){};
 
@@ -40,6 +47,10 @@ public class Countries {
 //        return array.getValuesAs(JsonObject.class).stream()
 //                .map(o -> o.getJsonObject("name").getString("common"))
 //                .collect(Collectors.toList());
+    }
+
+    public List<String> defaultCountryNames() {
+        return List.of("Germany", "Austria", "Italy");
     }
 
     @PreDestroy
