@@ -5,7 +5,7 @@
 - ✓ Quarkus dev mode, turnaround times
 - ✓ CDI, Quarkus-specifics
 - ✓ Configuration
-- Health, Instrumentation, Metrics
+- ✓ Health, Instrumentation, Metrics
 - REST, JSON
 - Concurrency, Scheduling
 - Persistence, Transactions, Panache, Data Migration
