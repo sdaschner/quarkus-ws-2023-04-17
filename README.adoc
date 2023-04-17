@@ -4,7 +4,7 @@
 - ✓ Difference to Spring & traditional EE
 - ✓ Quarkus dev mode, turnaround times
 - ✓ CDI, Quarkus-specifics
-- Configuration
+- ✓ Configuration
 - Health, Instrumentation, Metrics
 - REST, JSON
 - Concurrency, Scheduling

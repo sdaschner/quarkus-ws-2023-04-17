@@ -1,21 +1,23 @@
 package com.sebastian_daschner.quarkus;
 
-import io.quarkus.arc.Lock;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
+import java.util.List;
 
 @ApplicationScoped
-//@Dependent
 public class Greeter {
 
-    public Greeter() {
-        System.out.println("Greeter.Greeter");
-    }
+    @ConfigProperty(name = "example.config")
+    String config;
 
-//    @Lock(value = Lock.Type.WRITE)
+    @ConfigProperty(name = "example.list")
+    List<String> configs;
+
     public String greet() {
-        return "Hello World";
+        System.out.println("configs = " + configs);
+
+        return "Hello " + config;
     }
 
 }
