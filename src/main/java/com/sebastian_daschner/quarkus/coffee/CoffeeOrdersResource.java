@@ -1,9 +1,13 @@
 package com.sebastian_daschner.quarkus.coffee;
 
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.stream.JsonCollectors;
+import javax.validation.Valid;
+import javax.validation.Validator;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,6 +18,9 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CoffeeOrdersResource {
+
+    @Inject
+    Validator validator;
 
     @GET
 //    public List<CoffeeOrder> orders() {
@@ -46,7 +53,7 @@ public class CoffeeOrdersResource {
     }
 
     @POST
-    public Response create(CoffeeOrder order) {
+    public Response create(@Valid @NotNull CoffeeOrder order) {
         System.out.println("order " + order + " created");
 
         return Response.accepted().build();

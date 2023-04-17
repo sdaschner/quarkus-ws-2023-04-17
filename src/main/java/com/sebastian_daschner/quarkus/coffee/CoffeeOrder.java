@@ -1,6 +1,7 @@
 package com.sebastian_daschner.quarkus.coffee;
 
 import javax.json.bind.annotation.JsonbTransient;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class CoffeeOrder {
@@ -9,6 +10,7 @@ public class CoffeeOrder {
     public UUID id;
 
     //    @JsonbProperty("coffeeType")
+    @NotNull
     private String type;
 
     public CoffeeOrder() {
